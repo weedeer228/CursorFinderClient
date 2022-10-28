@@ -1,0 +1,20 @@
+﻿<Window x:Class="CursorFinderClient.Windows.MouseActionList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="MouseActionList" Height="450" Width="400">
+    <Grid>
+        <ListView ItemsSource="{Binding CursorPositions}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding XPos}">XPos</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding YPos}">YPos</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding DateTime}">DateTime</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding ActionType}">ActionType</GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

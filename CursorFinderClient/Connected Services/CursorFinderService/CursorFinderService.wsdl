@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" name="CursorFinderService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_ICursorFinderService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8080/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CursorFinder.Models" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ICursorFinderService_AddNewCursorPosition_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddNewCursorPosition" />
+  </wsdl:message>
+  <wsdl:message name="ICursorFinderService_AddNewCursorPosition_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddNewCursorPositionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICursorFinderService_StartRecord_InputMessage">
+    <wsdl:part name="parameters" element="tns:StartRecord" />
+  </wsdl:message>
+  <wsdl:message name="ICursorFinderService_StartRecord_OutputMessage">
+    <wsdl:part name="parameters" element="tns:StartRecordResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICursorFinderService_StopRecord_InputMessage">
+    <wsdl:part name="parameters" element="tns:StopRecord" />
+  </wsdl:message>
+  <wsdl:message name="ICursorFinderService_StopRecord_OutputMessage">
+    <wsdl:part name="parameters" element="tns:StopRecordResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICursorFinderService_GetAllCursorPositions_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCursorPositions" />
+  </wsdl:message>
+  <wsdl:message name="ICursorFinderService_GetAllCursorPositions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCursorPositionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICursorFinderService_Auth_InputMessage">
+    <wsdl:part name="parameters" element="tns:Auth" />
+  </wsdl:message>
+  <wsdl:message name="ICursorFinderService_Auth_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AuthResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICursorFinderService_ClearDb_InputMessage">
+    <wsdl:part name="parameters" element="tns:ClearDb" />
+  </wsdl:message>
+  <wsdl:message name="ICursorFinderService_ClearDb_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ClearDbResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICursorFinderService_IsUSerAdmin_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsUSerAdmin" />
+  </wsdl:message>
+  <wsdl:message name="ICursorFinderService_IsUSerAdmin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsUSerAdminResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICursorFinderService_GetDbRecordsCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDbRecordsCount" />
+  </wsdl:message>
+  <wsdl:message name="ICursorFinderService_GetDbRecordsCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDbRecordsCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICursorFinderService_EnableNotification_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnableNotification" />
+  </wsdl:message>
+  <wsdl:message name="ICursorFinderService_EnableNotification_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnableNotificationResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICursorFinderService_DisableNotification_InputMessage">
+    <wsdl:part name="parameters" element="tns:DisableNotification" />
+  </wsdl:message>
+  <wsdl:message name="ICursorFinderService_DisableNotification_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DisableNotificationResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ICursorFinderService">
+    <wsdl:operation name="AddNewCursorPosition">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICursorFinderService/AddNewCursorPosition" message="tns:ICursorFinderService_AddNewCursorPosition_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICursorFinderService/AddNewCursorPositionResponse" message="tns:ICursorFinderService_AddNewCursorPosition_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="StartRecord">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICursorFinderService/StartRecord" message="tns:ICursorFinderService_StartRecord_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICursorFinderService/StartRecordResponse" message="tns:ICursorFinderService_StartRecord_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="StopRecord">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICursorFinderService/StopRecord" message="tns:ICursorFinderService_StopRecord_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICursorFinderService/StopRecordResponse" message="tns:ICursorFinderService_StopRecord_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCursorPositions">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICursorFinderService/GetAllCursorPositions" message="tns:ICursorFinderService_GetAllCursorPositions_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICursorFinderService/GetAllCursorPositionsResponse" message="tns:ICursorFinderService_GetAllCursorPositions_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Auth">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICursorFinderService/Auth" message="tns:ICursorFinderService_Auth_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICursorFinderService/AuthResponse" message="tns:ICursorFinderService_Auth_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ClearDb">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICursorFinderService/ClearDb" message="tns:ICursorFinderService_ClearDb_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICursorFinderService/ClearDbResponse" message="tns:ICursorFinderService_ClearDb_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsUSerAdmin">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICursorFinderService/IsUSerAdmin" message="tns:ICursorFinderService_IsUSerAdmin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICursorFinderService/IsUSerAdminResponse" message="tns:ICursorFinderService_IsUSerAdmin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDbRecordsCount">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICursorFinderService/GetDbRecordsCount" message="tns:ICursorFinderService_GetDbRecordsCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICursorFinderService/GetDbRecordsCountResponse" message="tns:ICursorFinderService_GetDbRecordsCount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnableNotification">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICursorFinderService/EnableNotification" message="tns:ICursorFinderService_EnableNotification_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICursorFinderService/EnableNotificationResponse" message="tns:ICursorFinderService_EnableNotification_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DisableNotification">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICursorFinderService/DisableNotification" message="tns:ICursorFinderService_DisableNotification_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICursorFinderService/DisableNotificationResponse" message="tns:ICursorFinderService_DisableNotification_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBinding_ICursorFinderService" type="tns:ICursorFinderService">
+    <wsp:PolicyReference URI="#NetTcpBinding_ICursorFinderService_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="AddNewCursorPosition">
+      <soap12:operation soapAction="http://tempuri.org/ICursorFinderService/AddNewCursorPosition" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartRecord">
+      <soap12:operation soapAction="http://tempuri.org/ICursorFinderService/StartRecord" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StopRecord">
+      <soap12:operation soapAction="http://tempuri.org/ICursorFinderService/StopRecord" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCursorPositions">
+      <soap12:operation soapAction="http://tempuri.org/ICursorFinderService/GetAllCursorPositions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Auth">
+      <soap12:operation soapAction="http://tempuri.org/ICursorFinderService/Auth" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClearDb">
+      <soap12:operation soapAction="http://tempuri.org/ICursorFinderService/ClearDb" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsUSerAdmin">
+      <soap12:operation soapAction="http://tempuri.org/ICursorFinderService/IsUSerAdmin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDbRecordsCount">
+      <soap12:operation soapAction="http://tempuri.org/ICursorFinderService/GetDbRecordsCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnableNotification">
+      <soap12:operation soapAction="http://tempuri.org/ICursorFinderService/EnableNotification" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DisableNotification">
+      <soap12:operation soapAction="http://tempuri.org/ICursorFinderService/DisableNotification" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CursorFinderService">
+    <wsdl:port name="NetTcpBinding_ICursorFinderService" binding="tns:NetTcpBinding_ICursorFinderService">
+      <soap12:address location="net.tcp://localhost:45617/CursorFinderService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:45617/CursorFinderService</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>GAVNO\nikita228</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
