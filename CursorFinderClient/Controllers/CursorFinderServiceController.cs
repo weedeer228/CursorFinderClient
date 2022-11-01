@@ -14,13 +14,19 @@ namespace CursorFinderClient.Controllers
         private Point _lastPoint;
         private CursorFinderServiceClient _client;
         private const float _distanceForUpdatePX = 10;
+        private int? _userToken = null;
 
         public CursorFinderServiceController()
         {
             DistanceForUpdate = (float)Math.Pow(_distanceForUpdatePX, 2);
         }
-        public int UserToken { get; private set; }
 
+        public async Task<int> UserToken()
+        {
+            if (_userToken is null)
+                _userToken = await Auth(false);
+            return (int)_userToken;
+        }
         private float DistanceForUpdate { get; }
 
         public CursorFinderServiceClient ServiceClient
@@ -40,7 +46,7 @@ namespace CursorFinderClient.Controllers
         {
             try
             {
-                return (await ServiceClient.GetAllCursorPositionsAsync()).ToList();
+                return (await ServiceClient.GetCursorPositionsByTokenAsync(await UserToken())).ToList();
             }
             catch (System.ServiceModel.CommunicationObjectFaultedException)
             {
@@ -53,8 +59,8 @@ namespace CursorFinderClient.Controllers
         {
             try
             {
-                UserToken = await Task.Run(() => ServiceClient.Auth(isAmin));
-                return UserToken;
+                _userToken = await Task.Run(() => ServiceClient.Auth(isAmin, _userToken));
+                return await UserToken();
             }
             catch (System.ServiceModel.CommunicationObjectFaultedException e)
             {
@@ -63,7 +69,7 @@ namespace CursorFinderClient.Controllers
             }
 
         }
-        public async Task UpdateCursorPositionAsync(int xPos, int yPos, MouseActionType mouseActionType) => await ServiceClient.AddNewCursorPositionAsync(xPos, yPos, mouseActionType);
+        public async Task UpdateCursorPositionAsync(int xPos, int yPos, MouseActionType mouseActionType) => await ServiceClient.AddNewCursorPositionAsync(xPos, yPos, mouseActionType, await UserToken());
         public async Task UpdateCursorPositionAsync(Point point, MouseActionType mouseActionType) => await UpdateCursorPositionAsync(point.X, point.Y, mouseActionType);
         public async Task<bool> EnableNotifictionsAsync()
         {
@@ -91,7 +97,6 @@ namespace CursorFinderClient.Controllers
                 return false;
             }
         }
-
         public async void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var point = Control.MousePosition;
@@ -128,13 +133,12 @@ namespace CursorFinderClient.Controllers
             UpdateLastPoint(point);
             await UpdateCursorPositionAsync(point, MouseActionType.Shift);
         }
-        public bool IsMyAccountAdmin() => ServiceClient.IsUSerAdmin(UserToken);
-
+        public async Task<bool> IsMyAccountAdmin() => ServiceClient.IsUSerAdmin(await UserToken());
         public async Task<int> GetDbRecordsCount()
         {
             try
             {
-                return await ServiceClient.GetDbRecordsCountAsync();
+                return await ServiceClient.GetDbRecordsCountAsync(await UserToken());
             }
             catch (System.ServiceModel.EndpointNotFoundException)
             {
@@ -143,7 +147,7 @@ namespace CursorFinderClient.Controllers
             }
         }
 
-        public async Task ClearDbRecords() => await ServiceClient.ClearDbAsync(UserToken);
+        public async Task ClearDbRecords() => await ServiceClient.ClearDbAsync(await UserToken());
         private void UpdateLastPoint(Point newPoint) => _lastPoint = newPoint;
         /// <summary>
         /// Решил убрать из формулы рассчета расстояния между

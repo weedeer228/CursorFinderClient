@@ -144,10 +144,10 @@ namespace CursorFinderClient.CursorFinderService {
     public interface ICursorFinderService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICursorFinderService/AddNewCursorPosition", ReplyAction="http://tempuri.org/ICursorFinderService/AddNewCursorPositionResponse")]
-        void AddNewCursorPosition(int xPos, int Ypos, CursorFinderClient.CursorFinderService.MouseActionType actionType);
+        void AddNewCursorPosition(int xPos, int Ypos, CursorFinderClient.CursorFinderService.MouseActionType actionType, int userToken);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICursorFinderService/AddNewCursorPosition", ReplyAction="http://tempuri.org/ICursorFinderService/AddNewCursorPositionResponse")]
-        System.Threading.Tasks.Task AddNewCursorPositionAsync(int xPos, int Ypos, CursorFinderClient.CursorFinderService.MouseActionType actionType);
+        System.Threading.Tasks.Task AddNewCursorPositionAsync(int xPos, int Ypos, CursorFinderClient.CursorFinderService.MouseActionType actionType, int userToken);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICursorFinderService/StartRecord", ReplyAction="http://tempuri.org/ICursorFinderService/StartRecordResponse")]
         bool StartRecord();
@@ -167,11 +167,17 @@ namespace CursorFinderClient.CursorFinderService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICursorFinderService/GetAllCursorPositions", ReplyAction="http://tempuri.org/ICursorFinderService/GetAllCursorPositionsResponse")]
         System.Threading.Tasks.Task<CursorFinderClient.CursorFinderService.CursorPosition[]> GetAllCursorPositionsAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICursorFinderService/Auth", ReplyAction="http://tempuri.org/ICursorFinderService/AuthResponse")]
-        int Auth(bool isAdmin);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICursorFinderService/GetCursorPositionsByToken", ReplyAction="http://tempuri.org/ICursorFinderService/GetCursorPositionsByTokenResponse")]
+        CursorFinderClient.CursorFinderService.CursorPosition[] GetCursorPositionsByToken(int userToken);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICursorFinderService/GetCursorPositionsByToken", ReplyAction="http://tempuri.org/ICursorFinderService/GetCursorPositionsByTokenResponse")]
+        System.Threading.Tasks.Task<CursorFinderClient.CursorFinderService.CursorPosition[]> GetCursorPositionsByTokenAsync(int userToken);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICursorFinderService/Auth", ReplyAction="http://tempuri.org/ICursorFinderService/AuthResponse")]
-        System.Threading.Tasks.Task<int> AuthAsync(bool isAdmin);
+        int Auth(bool isAdmin, System.Nullable<int> token);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICursorFinderService/Auth", ReplyAction="http://tempuri.org/ICursorFinderService/AuthResponse")]
+        System.Threading.Tasks.Task<int> AuthAsync(bool isAdmin, System.Nullable<int> token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICursorFinderService/ClearDb", ReplyAction="http://tempuri.org/ICursorFinderService/ClearDbResponse")]
         bool ClearDb(int userAuthToken);
@@ -186,10 +192,10 @@ namespace CursorFinderClient.CursorFinderService {
         System.Threading.Tasks.Task<bool> IsUSerAdminAsync(int userAuthToken);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICursorFinderService/GetDbRecordsCount", ReplyAction="http://tempuri.org/ICursorFinderService/GetDbRecordsCountResponse")]
-        int GetDbRecordsCount();
+        int GetDbRecordsCount(int userToken);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICursorFinderService/GetDbRecordsCount", ReplyAction="http://tempuri.org/ICursorFinderService/GetDbRecordsCountResponse")]
-        System.Threading.Tasks.Task<int> GetDbRecordsCountAsync();
+        System.Threading.Tasks.Task<int> GetDbRecordsCountAsync(int userToken);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICursorFinderService/EnableNotification", ReplyAction="http://tempuri.org/ICursorFinderService/EnableNotificationResponse")]
         void EnableNotification();
@@ -231,12 +237,12 @@ namespace CursorFinderClient.CursorFinderService {
                 base(binding, remoteAddress) {
         }
         
-        public void AddNewCursorPosition(int xPos, int Ypos, CursorFinderClient.CursorFinderService.MouseActionType actionType) {
-            base.Channel.AddNewCursorPosition(xPos, Ypos, actionType);
+        public void AddNewCursorPosition(int xPos, int Ypos, CursorFinderClient.CursorFinderService.MouseActionType actionType, int userToken) {
+            base.Channel.AddNewCursorPosition(xPos, Ypos, actionType, userToken);
         }
         
-        public System.Threading.Tasks.Task AddNewCursorPositionAsync(int xPos, int Ypos, CursorFinderClient.CursorFinderService.MouseActionType actionType) {
-            return base.Channel.AddNewCursorPositionAsync(xPos, Ypos, actionType);
+        public System.Threading.Tasks.Task AddNewCursorPositionAsync(int xPos, int Ypos, CursorFinderClient.CursorFinderService.MouseActionType actionType, int userToken) {
+            return base.Channel.AddNewCursorPositionAsync(xPos, Ypos, actionType, userToken);
         }
         
         public bool StartRecord() {
@@ -263,12 +269,20 @@ namespace CursorFinderClient.CursorFinderService {
             return base.Channel.GetAllCursorPositionsAsync();
         }
         
-        public int Auth(bool isAdmin) {
-            return base.Channel.Auth(isAdmin);
+        public CursorFinderClient.CursorFinderService.CursorPosition[] GetCursorPositionsByToken(int userToken) {
+            return base.Channel.GetCursorPositionsByToken(userToken);
         }
         
-        public System.Threading.Tasks.Task<int> AuthAsync(bool isAdmin) {
-            return base.Channel.AuthAsync(isAdmin);
+        public System.Threading.Tasks.Task<CursorFinderClient.CursorFinderService.CursorPosition[]> GetCursorPositionsByTokenAsync(int userToken) {
+            return base.Channel.GetCursorPositionsByTokenAsync(userToken);
+        }
+        
+        public int Auth(bool isAdmin, System.Nullable<int> token) {
+            return base.Channel.Auth(isAdmin, token);
+        }
+        
+        public System.Threading.Tasks.Task<int> AuthAsync(bool isAdmin, System.Nullable<int> token) {
+            return base.Channel.AuthAsync(isAdmin, token);
         }
         
         public bool ClearDb(int userAuthToken) {
@@ -287,12 +301,12 @@ namespace CursorFinderClient.CursorFinderService {
             return base.Channel.IsUSerAdminAsync(userAuthToken);
         }
         
-        public int GetDbRecordsCount() {
-            return base.Channel.GetDbRecordsCount();
+        public int GetDbRecordsCount(int userToken) {
+            return base.Channel.GetDbRecordsCount(userToken);
         }
         
-        public System.Threading.Tasks.Task<int> GetDbRecordsCountAsync() {
-            return base.Channel.GetDbRecordsCountAsync();
+        public System.Threading.Tasks.Task<int> GetDbRecordsCountAsync(int userToken) {
+            return base.Channel.GetDbRecordsCountAsync(userToken);
         }
         
         public void EnableNotification() {

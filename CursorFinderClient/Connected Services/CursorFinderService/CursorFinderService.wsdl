@@ -60,6 +60,12 @@
   <wsdl:message name="ICursorFinderService_GetAllCursorPositions_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllCursorPositionsResponse" />
   </wsdl:message>
+  <wsdl:message name="ICursorFinderService_GetCursorPositionsByToken_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCursorPositionsByToken" />
+  </wsdl:message>
+  <wsdl:message name="ICursorFinderService_GetCursorPositionsByToken_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCursorPositionsByTokenResponse" />
+  </wsdl:message>
   <wsdl:message name="ICursorFinderService_Auth_InputMessage">
     <wsdl:part name="parameters" element="tns:Auth" />
   </wsdl:message>
@@ -112,6 +118,10 @@
     <wsdl:operation name="GetAllCursorPositions">
       <wsdl:input wsaw:Action="http://tempuri.org/ICursorFinderService/GetAllCursorPositions" message="tns:ICursorFinderService_GetAllCursorPositions_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICursorFinderService/GetAllCursorPositionsResponse" message="tns:ICursorFinderService_GetAllCursorPositions_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCursorPositionsByToken">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICursorFinderService/GetCursorPositionsByToken" message="tns:ICursorFinderService_GetCursorPositionsByToken_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICursorFinderService/GetCursorPositionsByTokenResponse" message="tns:ICursorFinderService_GetCursorPositionsByToken_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Auth">
       <wsdl:input wsaw:Action="http://tempuri.org/ICursorFinderService/Auth" message="tns:ICursorFinderService_Auth_InputMessage" />
@@ -170,6 +180,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetAllCursorPositions">
       <soap12:operation soapAction="http://tempuri.org/ICursorFinderService/GetAllCursorPositions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCursorPositionsByToken">
+      <soap12:operation soapAction="http://tempuri.org/ICursorFinderService/GetCursorPositionsByToken" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

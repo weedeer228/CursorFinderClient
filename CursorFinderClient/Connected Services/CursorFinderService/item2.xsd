@@ -7,6 +7,7 @@
         <xs:element minOccurs="0" name="xPos" type="xs:int" />
         <xs:element minOccurs="0" name="Ypos" type="xs:int" />
         <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CursorFinder.Models" minOccurs="0" name="actionType" type="q1:MouseActionType" />
+        <xs:element minOccurs="0" name="userToken" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -51,10 +52,25 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetCursorPositionsByToken">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="userToken" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCursorPositionsByTokenResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/CursorFinder.Models" minOccurs="0" name="GetCursorPositionsByTokenResult" nillable="true" type="q3:ArrayOfCursorPosition" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="Auth">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="isAdmin" type="xs:boolean" />
+        <xs:element minOccurs="0" name="token" nillable="true" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -95,7 +111,9 @@
   </xs:element>
   <xs:element name="GetDbRecordsCount">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="userToken" type="xs:int" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetDbRecordsCountResponse">

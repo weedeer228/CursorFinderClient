@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 namespace CursorFinderClient
 {
-    
+
     public partial class MainWindow : Window
     {
         private bool _isRecording;
@@ -124,9 +124,9 @@ namespace CursorFinderClient
         #endregion
 
         #region Админка
-        private void CheckAdminPanel()
+        private async void CheckAdminPanel()
         {
-            if (_finderServiceController.IsMyAccountAdmin())
+            if (await _finderServiceController.IsMyAccountAdmin())
                 EnableAdminPanel();
             else
                 DisableAdminPanel();
@@ -164,7 +164,7 @@ namespace CursorFinderClient
         }
         #endregion
 
-        #region Включение/отключение объектов
+        #region Включение/отключение уведомлений
         private async void NotificationToggle_Checked(object sender, RoutedEventArgs e) => await _finderServiceController.EnableNotifictionsAsync();
 
         private async void NotificationToggle_Unchecked(object sender, RoutedEventArgs e) => await _finderServiceController.DisableNotifictionsAsync();
